@@ -1,0 +1,74 @@
+<div class="catalogue-container">
+  <header class="catalogue-header">
+    <h1 class="title">
+      <span class="title-icon">🛍️</span>
+      Notre Catalogue
+    </h1>
+    <p class="subtitle">Découvrez notre sélection de produits</p>
+  </header>
+
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p class="loading-text">Chargement des produits...</p>
+  </div>
+
+  <section class="products-section" *ngIf="!loading">
+    <div class="products-count" *ngIf="products.length > 0">
+      <span class="count-badge">{{ products.length }}</span>
+      <span class="count-text"
+        >produit{{ products.length > 1 ? 's' : '' }} disponible{{
+          products.length > 1 ? 's' : ''
+        }}</span
+      >
+    </div>
+
+    <div *ngIf="products.length === 0" class="empty-state">
+      <div class="empty-icon">📦</div>
+      <h2>Aucun produit disponible</h2>
+      <p>Revenez bientôt pour découvrir nos nouveautés !</p>
+    </div>
+
+    <div class="grid" *ngIf="products.length > 0">
+      <article class="card" *ngFor="let p of products">
+        <div class="card-image">
+          <img [src]="p.imageUrl" [alt]="'Photo de ' + p.name" loading="lazy" />
+          <div class="image-overlay">
+            <span class="quick-view">Aperçu rapide</span>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <span class="brand-badge">{{ p.brand }}</span>
+
+          <h3 class="product-name" [title]="p.name">{{ p.name }}</h3>
+
+          <p class="product-description">{{ p.shortDescription }}</p>
+
+          <div class="card-footer">
+            <div class="price-container">
+              <span class="price-label">Prix</span>
+              <span class="price">{{ p.price | currency : 'EUR' }}</span>
+            </div>
+
+            <a
+              class="btn-detail"
+              [routerLink]="['/product', p.id]"
+              [attr.aria-label]="'Voir les détails de ' + p.name"
+            >
+              <span>Voir détail</span>
+              <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M6 3L11 8L6 13"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

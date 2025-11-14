@@ -1,0 +1,450 @@
+// Variables
+$blue: #1e88e5;
+$blue-dark: #1565c0;
+$blue-light: #e3f2fd;
+$blue-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$radius: 12px;
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 8px 25px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.15);
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Container
+.catalogue-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+// Header
+.catalogue-header {
+  text-align: center;
+  margin-bottom: 50px;
+  animation: fadeInDown 0.6s ease-out;
+
+  .title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    background: $blue-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    display: inline-block;
+
+    .title-icon {
+      display: inline-block;
+      animation: bounce 2s infinite;
+      margin-right: 12px;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    font-weight: 400;
+  }
+}
+
+// Loading State
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  animation: fadeIn 0.4s ease-out;
+
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid $blue-light;
+    border-top-color: $blue;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 20px;
+  }
+
+  .loading-text {
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 500;
+  }
+}
+
+// Products Section
+.products-section {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.products-count {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  padding: 15px 25px;
+  background: white;
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+  width: fit-content;
+
+  .count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    background: $blue-gradient;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .count-text {
+    font-weight: 600;
+    color: #333;
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  animation: fadeIn 0.5s ease-out;
+
+  .empty-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: #999;
+  }
+}
+
+// Grid
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// Card
+.card {
+  background: white;
+  border-radius: $radius;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: $transition;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $blue-gradient;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-lg;
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .card-image {
+      img {
+        transform: scale(1.1);
+      }
+
+      .image-overlay {
+        opacity: 1;
+      }
+    }
+
+    .btn-detail {
+      background: $blue-dark;
+      transform: translateX(4px);
+
+      .btn-icon {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  // Image
+  .card-image {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .image-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      .quick-view {
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 12px 24px;
+        border: 2px solid white;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+    }
+  }
+
+  // Content
+  .card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .brand-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: $blue;
+      background: $blue-light;
+      padding: 6px 12px;
+      border-radius: 6px;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    .product-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      min-height: 2.8em;
+    }
+
+    .product-description {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+
+      .price-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .price-label {
+          font-size: 0.75rem;
+          color: #999;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 600;
+        }
+
+        .price {
+          font-size: 1.5rem;
+          font-weight: 800;
+          background: $blue-gradient;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+      }
+
+      .btn-detail {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: $blue;
+        color: white;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: $transition;
+        white-space: nowrap;
+
+        .btn-icon {
+          transition: transform 0.3s ease;
+        }
+
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 3px rgba($blue, 0.3);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalogue-container {
+    padding: 30px 15px;
+  }
+
+  .catalogue-header {
+    margin-bottom: 35px;
+
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    .card-image {
+      height: 180px;
+    }
+
+    .card-content {
+      padding: 15px;
+
+      .product-name {
+        font-size: 1.1rem;
+      }
+
+      .card-footer {
+        flex-direction: column;
+        align-items: stretch;
+
+        .btn-detail {
+          justify-content: center;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .products-count {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

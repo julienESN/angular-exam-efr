@@ -1,0 +1,41 @@
+<div *ngIf="loading" class="loading">Chargement du produit...</div>
+
+<section *ngIf="!loading && product" class="product-page">
+  <div class="image-block">
+    <img [src]="product.imageUrl" [alt]="product.name" />
+  </div>
+
+  <div class="info-block">
+    <h1>{{ product.name }}</h1>
+    <p class="brand">{{ product.brand }}</p>
+
+    <p class="price">{{ product.price | currency : 'EUR' }}</p>
+
+    <p class="short">{{ product.shortDescription }}</p>
+
+    <div class="stock" [class.out-of-stock]="product.stock === 0">
+      <ng-container *ngIf="product.stock > 0; else noStock">
+        En stock : {{ product.stock }} exemplaire(s)
+      </ng-container>
+      <ng-template #noStock>Rupture de stock</ng-template>
+    </div>
+
+    <div class="buy-block">
+      <label>Quantité</label>
+      <input type="number" min="1" [(ngModel)]="quantity" />
+
+      <button (click)="addToCart()" [disabled]="product.stock === 0">Ajouter au panier</button>
+    </div>
+
+    <h2>Descriptif</h2>
+    <p class="description">{{ product.description }}</p>
+
+    <h2>Caractéristiques</h2>
+    <table class="specs">
+      <tr *ngFor="let spec of product.specs | keyvalue">
+        <th>{{ spec.key }}</th>
+        <td>{{ spec.value }}</td>
+      </tr>
+    </table>
+  </div>
+</section>
