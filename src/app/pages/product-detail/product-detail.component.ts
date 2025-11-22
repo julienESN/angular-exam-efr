@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../core/services/product.service';
+import { CartService } from '../../core/services/cart.service';
 import { Product } from '../../core/models/product.model';
 
 @Component({
@@ -17,7 +18,11 @@ export class ProductDetailComponent implements OnInit {
   loading = true;
   quantity = 1;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -34,6 +39,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart() {
-    alert('Fonction ajout au panier à implémenter (front only).');
+    if (this.product) {
+      this.cartService.addToCart(this.product, this.quantity);
+    }
   }
 }

@@ -1,71 +1,109 @@
 <div class="catalogue-container">
   <header class="catalogue-header">
     <h1 class="title">
-      <span class="title-icon">🛍️</span>
-      Notre Catalogue
+      Collection Exclusive
     </h1>
-    <p class="subtitle">Découvrez notre sélection de produits</p>
+    <p class="subtitle">
+      Explorez notre sélection minutieuse de produits technologiques haut de gamme, conçus pour
+      l'excellence.
+    </p>
   </header>
 
-  <div *ngIf="loading" class="loading-state">
-    <div class="spinner"></div>
-    <p class="loading-text">Chargement des produits...</p>
+  <!-- Controls Section (Search & Filter) -->
+  <div class="controls-section">
+    <div class="search-box">
+      <svg
+        class="search-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        placeholder="Rechercher un produit..."
+        [ngModel]="searchTerm"
+        (ngModelChange)="onSearch($event)"
+      />
+    </div>
+
+    <div class="filter-group">
+      <label for="brand-select">Marque :</label>
+      <select
+        id="brand-select"
+        [ngModel]="selectedBrand"
+        (ngModelChange)="onBrandChange($event)"
+      >
+        <option value="">Toutes les marques</option>
+        <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+      </select>
+    </div>
   </div>
 
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Chargement de la collection...</p>
+  </div>
+
+  <!-- Products Section -->
   <section class="products-section" *ngIf="!loading">
-    <div class="products-count" *ngIf="products.length > 0">
-      <span class="count-badge">{{ products.length }}</span>
-      <span class="count-text"
-        >produit{{ products.length > 1 ? 's' : '' }} disponible{{
-          products.length > 1 ? 's' : ''
-        }}</span
-      >
+    <div class="products-count" *ngIf="filteredProducts.length > 0">
+      Affichage de <strong>{{ filteredProducts.length }}</strong> produit{{
+        filteredProducts.length > 1 ? 's' : ''
+      }}
     </div>
 
-    <div *ngIf="products.length === 0" class="empty-state">
-      <div class="empty-icon">📦</div>
-      <h2>Aucun produit disponible</h2>
-      <p>Revenez bientôt pour découvrir nos nouveautés !</p>
+    <!-- Empty State -->
+    <div *ngIf="filteredProducts.length === 0" class="empty-state">
+      <h2>Aucun résultat trouvé</h2>
+      <p>Essayez de modifier vos critères de recherche.</p>
     </div>
 
-    <div class="grid" *ngIf="products.length > 0">
-      <article class="card" *ngFor="let p of products">
+    <!-- Grid -->
+    <div class="grid" *ngIf="filteredProducts.length > 0">
+      <article class="card" *ngFor="let p of filteredProducts; trackBy: trackByProductId">
         <div class="card-image">
-          <img [src]="p.imageUrl" [alt]="'Photo de ' + p.name" loading="lazy" />
-          <div class="image-overlay">
-            <span class="quick-view">Aperçu rapide</span>
-          </div>
+          <span class="badge-new" *ngIf="p.stock > 0">Nouveau</span>
+          <img [src]="p.imageUrl" [alt]="p.name" loading="lazy" />
         </div>
 
         <div class="card-content">
-          <span class="brand-badge">{{ p.brand }}</span>
-
+          <span class="brand">{{ p.brand }}</span>
           <h3 class="product-name" [title]="p.name">{{ p.name }}</h3>
-
           <p class="product-description">{{ p.shortDescription }}</p>
 
           <div class="card-footer">
-            <div class="price-container">
-              <span class="price-label">Prix</span>
-              <span class="price">{{ p.price | currency : 'EUR' }}</span>
-            </div>
+            <span class="price">{{ p.price | currency : 'EUR' }}</span>
 
             <a
               class="btn-detail"
               [routerLink]="['/product', p.id]"
               [attr.aria-label]="'Voir les détails de ' + p.name"
             >
-              <span>Voir détail</span>
-              <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M6 3L11 8L6 13"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </a>
+            <button
+              class="btn-add-cart"
+              (click)="cartService.addToCart(p)"
+              [attr.aria-label]="'Ajouter ' + p.name + ' au panier'"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </button>
           </div>
         </div>
       </article>

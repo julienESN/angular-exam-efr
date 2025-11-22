@@ -2,13 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../core/services/product.service';
+import { CartService } from '../../core/services/cart.service';
 import { Product } from '../../core/models/product.model';
 
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './catalogue.component.html',
   styleUrls: ['./catalogue.component.scss'],
 })
@@ -22,12 +24,14 @@ export class CatalogueComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  // Liste unique des marques
   get brands(): string[] {
     return [...new Set(this.products.map((p) => p.brand))].sort();
   }
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    protected cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();

@@ -200,15 +200,6 @@
         </span>
       </div>
 
-      <div class="form-options">
-        <label class="checkbox-label">
-          <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
-          <span class="checkbox-custom"></span>
-          <span class="checkbox-text">Se souvenir de moi</span>
-        </label>
-        <a href="#" class="forgot-link" (click)="$event.preventDefault()">Mot de passe oublié ?</a>
-      </div>
-
       <button
         type="submit"
         class="btn-submit"
@@ -244,5 +235,9 @@
         </span>
       </button>
     </form>
+    <div class="dev-hint">
+      <span class="icon">📂</span>
+      <span class="text">Data source(Les logs pour se co): <code>backend/db.json</code></span>
+    </div>
   </div>
 </div>
