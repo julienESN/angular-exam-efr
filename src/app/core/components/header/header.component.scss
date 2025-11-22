@@ -1,0 +1,70 @@
+@use '../../../../styles.scss' as *;
+
+.header {
+  background-color: $surface;
+  color: $text-main;
+  padding: 1rem 0;
+  box-shadow: $shadow-md;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid $border-light;
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: $primary;
+    text-decoration: none;
+    transition: $transition-base;
+    letter-spacing: -0.02em;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+
+  .cart-link {
+    position: relative;
+    text-decoration: none;
+    color: $text-main;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    transition: $transition-base;
+    padding: 8px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $background;
+      color: $accent;
+      transform: translateY(-2px);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: $accent;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid $surface;
+      box-shadow: $shadow-sm;
+    }
+  }
+}

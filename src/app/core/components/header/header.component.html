@@ -1,0 +1,13 @@
+<header class="header">
+  <div class="container">
+    <a routerLink="/catalogue" class="logo">TopAchatLike</a>
+    <nav>
+      <a routerLink="/panier" class="cart-link">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" *ngIf="cartService.itemCount() > 0">
+          {{ cartService.itemCount() }}
+        </span>
+      </a>
+    </nav>
+  </div>
+</header>
