@@ -1,0 +1,261 @@
+@use '../../../styles.scss' as *;
+
+.payment-page {
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: $text-muted;
+    text-decoration: none;
+    font-weight: 500;
+    transition: $transition-base;
+
+    &:hover {
+      color: $primary;
+      transform: translateX(-4px);
+    }
+  }
+
+  h1 {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: $primary;
+    font-weight: 800;
+  }
+}
+
+.payment-layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
+}
+
+.forms-section {
+  flex: 1;
+  width: 100%;
+}
+
+.form-block {
+  background: $surface;
+  padding: 32px;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  border: 1px solid $border-light;
+  margin-bottom: 32px;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1.25rem;
+    color: $primary;
+    border-bottom: 1px solid $border-light;
+    padding-bottom: 16px;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: $text-main;
+  }
+
+  input {
+    padding: 12px;
+    border: 1px solid $border-light;
+    border-radius: $radius-sm;
+    font-size: 1rem;
+    transition: $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $accent;
+      box-shadow: 0 0 0 3px rgba($accent, 0.1);
+    }
+  }
+}
+
+.payment-methods {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  .method-card {
+    flex: 1;
+    border: 2px solid $border-light;
+    border-radius: $radius-sm;
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: $transition-base;
+
+    &:hover {
+      border-color: $text-muted;
+    }
+
+    &.selected {
+      border-color: $accent;
+      background-color: rgba($accent, 0.05);
+    }
+
+    input {
+      display: none;
+    }
+
+    .method-icon {
+      font-size: 1.5rem;
+    }
+
+    .method-name {
+      font-weight: 600;
+      color: $text-main;
+    }
+  }
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid $border-light;
+
+  .form-row {
+    display: flex;
+    gap: 20px;
+    
+    .form-group {
+      flex: 1;
+    }
+  }
+}
+
+.paypal-info {
+  text-align: center;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: $radius-sm;
+  color: $text-muted;
+}
+
+.order-summary {
+  width: 380px;
+  background: $surface;
+  padding: 32px;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+  border: 1px solid $border-light;
+  position: sticky;
+  top: 100px;
+  flex-shrink: 0;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    position: static;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1.25rem;
+    color: $primary;
+  }
+
+  .items-list {
+    margin-bottom: 24px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 8px;
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: $text-muted;
+
+      .item-name {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 12px;
+      }
+
+      .item-price {
+        font-weight: 600;
+        color: $text-main;
+      }
+    }
+  }
+
+  .summary-totals {
+    border-top: 2px solid $border-light;
+    padding-top: 20px;
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      color: $text-muted;
+
+      &.total {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid $border-light;
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: $primary;
+      }
+    }
+  }
+
+  .pay-btn {
+    width: 100%;
+    background: $accent;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: $radius-sm;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: $transition-base;
+    box-shadow: $shadow-md;
+
+    &:hover {
+      background: $accent-hover;
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+  }
+}

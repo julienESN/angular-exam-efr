@@ -4,34 +4,53 @@
   <div class="image-block">
     <img [src]="product.imageUrl" [alt]="product.name" />
   </div>
-
   <div class="info-block">
+    <span class="brand">{{ product.brand }}</span>
     <h1>{{ product.name }}</h1>
-    <p class="brand">{{ product.brand }}</p>
-
     <p class="price">{{ product.price | currency : 'EUR' }}</p>
 
     <p class="short">{{ product.shortDescription }}</p>
 
-    <div class="stock" [class.out-of-stock]="product.stock === 0">
-      <ng-container *ngIf="product.stock > 0; else noStock">
-        En stock : {{ product.stock }} exemplaire(s)
-      </ng-container>
-      <ng-template #noStock>Rupture de stock</ng-template>
-    </div>
+    <!-- Actions Container -->
+    <div class="actions-container">
+      <div class="stock" [class.out-of-stock]="product.stock === 0">
+        <ng-container *ngIf="product.stock > 0; else noStock">
+          En stock ({{ product.stock }} disponibles)
+        </ng-container>
+        <ng-template #noStock>Rupture de stock</ng-template>
+      </div>
 
-    <div class="buy-block">
-      <label>Quantité</label>
-      <input type="number" min="1" [(ngModel)]="quantity" />
+      <div class="buy-block">
+        <div class="quantity-selector">
+          <label for="qty">Quantité</label>
+          <input id="qty" type="number" min="1" [max]="product.stock" [(ngModel)]="quantity" />
+        </div>
 
-      <button (click)="addToCart()" [disabled]="product.stock === 0">Ajouter au panier</button>
+        <button (click)="addToCart()" [disabled]="product.stock === 0">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Ajouter au panier
+        </button>
+      </div>
     </div>
 
     <h2>Descriptif</h2>
     <p class="description">{{ product.description }}</p>
 
     <h2>Caractéristiques</h2>
-    <table class="specs">
+    <table class="specs-table">
       <tr *ngFor="let spec of product.specs | keyvalue">
         <th>{{ spec.key }}</th>
         <td>{{ spec.value }}</td>
