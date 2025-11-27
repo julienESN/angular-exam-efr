@@ -1,13 +1,13 @@
 # TopAchatLike - Application E-commerce Angular
 
-## 👥 Contributeurs
+## Contributeurs
 
-- Esnault Julien
+- Julien Esnault 
 - Clément Suire
-- Gaalad Filatre
+- Galaad Filatre
 - Sofiane Fares
 
-## 📋 Description
+## Description
 
 TopAchatLike est une application e-commerce développée en Angular permettant de parcourir un catalogue de produits informatiques (claviers, souris, casques, écrans, accessoires), de les ajouter au panier et de procéder au paiement.
 
@@ -26,7 +26,7 @@ TopAchatLike est une application e-commerce développée en Angular permettant d
 - JSON Server comme backend mock (API REST)
 - RxJS pour la gestion des données asynchrones
 
-## 🚀 Installation et lancement
+## Installation et lancement
 
 ### Prérequis
 
