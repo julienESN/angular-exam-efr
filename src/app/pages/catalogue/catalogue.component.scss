@@ -78,84 +78,121 @@ $transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 40px;
-  padding: 20px;
+  padding: 16px 24px;
   background: $surface;
-  border-radius: $radius-md;
-  box-shadow: $shadow-sm;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
   border: 1px solid $border-light;
 
   .search-box {
     position: relative;
     flex: 1;
-    min-width: 300px;
+    min-width: 280px;
+    max-width: 500px;
 
     input {
       width: 100%;
-      padding: 12px 16px 12px 48px;
-      border: 1px solid $border-light;
-      border-radius: $radius-sm;
-      font-size: 1rem;
+      padding: 14px 16px 14px 52px;
+      border: 2px solid transparent;
+      border-radius: 50px;
+      font-size: 0.95rem;
       color: $text-main;
       transition: $transition-base;
       background: $background;
 
+      &:hover {
+        background: color.adjust($background, $lightness: -2%);
+      }
+
       &:focus {
         outline: none;
         border-color: $accent;
-        box-shadow: 0 0 0 3px rgba($accent, 0.1);
+        box-shadow: 0 0 0 4px rgba($accent, 0.12);
         background: $surface;
+
+        & + .search-icon-wrapper .search-icon {
+          color: $accent;
+        }
       }
 
       &::placeholder {
-        color: color.adjust($text-muted, $lightness: 20%);
+        color: $text-muted;
+        font-weight: 400;
       }
     }
 
     .search-icon {
       position: absolute;
-      left: 16px;
+      left: 18px;
       top: 50%;
       transform: translateY(-50%);
       color: $text-muted;
       pointer-events: none;
+      transition: $transition-base;
     }
   }
 
   .filter-group {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    background: $background;
+    padding: 6px 6px 6px 16px;
+    border-radius: 50px;
+    transition: $transition-base;
+
+    &:hover {
+      background: color.adjust($background, $lightness: -2%);
+    }
+
+    &:focus-within {
+      box-shadow: 0 0 0 4px rgba($accent, 0.12);
+    }
 
     label {
-      font-weight: 600;
-      color: $text-main;
-      font-size: 0.9rem;
+      font-weight: 500;
+      color: $text-muted;
+      font-size: 0.85rem;
+      white-space: nowrap;
     }
 
     select {
-      padding: 10px 36px 10px 16px;
-      border: 1px solid $border-light;
-      border-radius: $radius-sm;
+      padding: 10px 40px 10px 14px;
+      border: 2px solid transparent;
+      border-radius: 50px;
       background-color: $surface;
       color: $text-main;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      font-weight: 500;
       cursor: pointer;
       transition: $transition-base;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366f1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px;
+      background-position: right 14px center;
+      background-size: 14px;
+      box-shadow: $shadow-sm;
+      min-width: 160px;
 
       &:hover {
-        border-color: $text-muted;
+        box-shadow: $shadow-md;
+        transform: translateY(-1px);
       }
 
       &:focus {
         outline: none;
         border-color: $accent;
+        box-shadow: 0 0 0 4px rgba($accent, 0.15);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366f1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 15l7-7 7 7'%3E%3C/path%3E%3C/svg%3E");
+      }
+
+      option {
+        padding: 12px 16px;
+        background: $surface;
+        color: $text-main;
+        font-weight: 500;
       }
     }
   }
@@ -414,16 +451,23 @@ $transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   .controls-section {
     flex-direction: column;
     align-items: stretch;
+    padding: 16px;
+    gap: 12px;
 
-    .search-box,
-    .filter-group {
+    .search-box {
       width: 100%;
+      max-width: none;
+      min-width: auto;
     }
 
     .filter-group {
+      width: 100%;
       justify-content: space-between;
+      padding: 8px 8px 8px 16px;
+
       select {
         flex: 1;
+        min-width: auto;
       }
     }
   }
