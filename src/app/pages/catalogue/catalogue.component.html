@@ -1,8 +1,6 @@
 <div class="catalogue-container">
   <header class="catalogue-header">
-    <h1 class="title">
-      Collection Exclusive
-    </h1>
+    <h1 class="title">Collection Exclusive</h1>
     <p class="subtitle">
       Explorez notre sélection minutieuse de produits technologiques haut de gamme, conçus pour
       l'excellence.
@@ -36,11 +34,7 @@
 
     <div class="filter-group">
       <label for="brand-select">Marque :</label>
-      <select
-        id="brand-select"
-        [ngModel]="selectedBrand"
-        (ngModelChange)="onBrandChange($event)"
-      >
+      <select id="brand-select" [ngModel]="selectedBrand" (ngModelChange)="onBrandChange($event)">
         <option value="">Toutes les marques</option>
         <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
       </select>
@@ -70,10 +64,10 @@
     <!-- Grid -->
     <div class="grid" *ngIf="filteredProducts.length > 0">
       <article class="card" *ngFor="let p of filteredProducts; trackBy: trackByProductId">
-        <div class="card-image">
+        <a class="card-image" [routerLink]="['/product', p.id]">
           <span class="badge-new" *ngIf="p.stock > 0">Nouveau</span>
           <img [src]="p.imageUrl" [alt]="p.name" loading="lazy" />
-        </div>
+        </a>
 
         <div class="card-content">
           <span class="brand">{{ p.brand }}</span>
@@ -88,7 +82,16 @@
               [routerLink]="['/product', p.id]"
               [attr.aria-label]="'Voir les détails de ' + p.name"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
@@ -98,7 +101,16 @@
               (click)="cartService.addToCart(p)"
               [attr.aria-label]="'Ajouter ' + p.name + ' au panier'"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <circle cx="9" cy="21" r="1"></circle>
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
